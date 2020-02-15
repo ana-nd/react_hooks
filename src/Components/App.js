@@ -1,11 +1,17 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-function App() {
+import Login from './Login/index';
+import Stories from './Stories/index';
+
+const App = () => {
   return (
-    <div className="App">
-      React App
-    </div>
-  );
-}
+    <Switch>
+      <Route exact path="/" component={Login} />
+      <Route exact path="/stories" component={Stories} />
+    </Switch>
+  )
+
+};
 
 export default App;

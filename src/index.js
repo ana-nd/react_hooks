@@ -1,11 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './Components/App';
+import { HashRouter as Router } from 'react-router-dom';
+import { createHashHistory } from 'history';
 import * as serviceWorker from './serviceWorker';
+import { ThemeProvider } from '@material-ui/styles';
+import { CssBaseline } from '@material-ui/core';
+import Theme from "./theme";
+import App from './Components/App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const history = createHashHistory({ queryKey: false });
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+ReactDOM.render(
+    <Router history={history}>
+        <ThemeProvider theme={Theme}>
+            <CssBaseline />
+            <App />
+        </ThemeProvider>
+    </Router>
+    , document.getElementById('root')
+);
+
+
 serviceWorker.unregister();
