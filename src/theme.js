@@ -5,11 +5,11 @@ export default createMuiTheme({
     palette: {
         type: 'light',
         primary: {
-            main: "#ff6600"
+            main: "#ff742b"
         },
     },
     typography: {
-        fontFamily: ['Poppins-Regular'].join(","),
+        fontFamily: ['Verdana','Geneva', 'sans-serif'].join(","),
     },
     spacing: 8
 });
