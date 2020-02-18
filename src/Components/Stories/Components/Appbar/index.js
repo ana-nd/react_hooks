@@ -1,8 +1,9 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Grid, Typography, InputBase, InputAdornment } from '@material-ui/core';
+import { AppBar, Toolbar, Grid, Typography, InputBase, InputAdornment, IconButton } from '@material-ui/core';
 import AppLogo from '../../../../images/logo-hn-search.png';
-import {Search} from '@material-ui/icons';
+import { Search, PowerSettingsNew } from '@material-ui/icons';
+import { withRouter } from 'react-router';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) =>
     }),
 );
 
-const Appbar = () => {
+const Appbar = ({history}) => {
 
     const classes = useStyles();
 
@@ -61,6 +62,9 @@ const Appbar = () => {
                                 <font style={{color: "#fff"}}>algolia</font>
                                 <i className="fas fa-sliders-h" style={{fontSize: "25px", color: "#fff",verticalAlign :"bottom", marginLeft: "20px"}}></i>
                             </Typography>
+                            <IconButton onClick={()=>{window.localStorage.clear(); history.push("/")}}>
+                                <PowerSettingsNew />
+                            </IconButton>
                         </Grid>
                     </Grid>
                 </Toolbar>
@@ -68,4 +72,4 @@ const Appbar = () => {
         )
 };
 
-export default Appbar;
+export default withRouter(Appbar);

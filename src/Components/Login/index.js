@@ -58,6 +58,8 @@ const Login = ({ history, ...props }) => {
         }
         if (email === Credentials.email && password === Credentials.password) {
             setError(false);
+            // window.localStorage.setItem("token",null)
+            window.localStorage.setItem("login",JSON.stringify({isAuthenticated:true}))
             history.push('/stories')
         } else {
             setError(true);
