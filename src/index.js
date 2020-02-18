@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { createHashHistory } from 'history';
 import * as serviceWorker from './serviceWorker';
 import { ThemeProvider } from '@material-ui/styles';
