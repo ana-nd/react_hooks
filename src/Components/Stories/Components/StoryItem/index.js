@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
-import { ListItem, ListItemText, Typography, Divider } from '@material-ui/core';
+import { ListItem, ListItemText, Typography } from '@material-ui/core';
+import {mapTime} from '../mapTime';
+import {getStory} from '../../../../Actions/storiesAction';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -10,45 +12,52 @@ const useStyles = makeStyles((theme) =>
         },
         secondaryItems: {
             display: "flex",
-            fontSize: theme.spacing(1.5)
+            fontSize: theme.spacing(1.4),
+            wordBreak: "inherit"
         },
         divider: {
             width: theme.spacing(0.125),
             height: theme.spacing(2.25),
             marginLeft: theme.spacing(1),
             marginRight: theme.spacing(1),
+            background: "#d8d82"
+        },
+        storyUrl: {
+            color: "#20201f"
         }
     })
 );
 
-const StoryItem = ({ history, ...props }) => {
+const StoryItem = ({ history, storyId }) => {
+
+    const [story, setStory] = useState(null);
 
     const classes = useStyles();
-    var story = props.storyDetail;
 
-    console.log(props,"props")
-    return (
+    useEffect(() => {
+        getStory(storyId).then(data => data && data.url && setStory(data));
+    }, [storyId]);
+
+    return story && story.url ?(
         <ListItem>
             <ListItemText 
-                primary={<Typography variant="body1" className={classes.title}>{story.title}</Typography>}
+                primary={<Typography className={classes.title}>{story.title}</Typography>}
                 secondary={
-                    <Typography variant="caption" className={classes.secondaryItems}>
+                    <Typography className={classes.secondaryItems}>
                         <span>{story.score} points</span>
-                        <Divider className={classes.divider}/>
+                        <span className={classes.divider}></span>
                         <span>{story.by}</span>
-                        <Divider className={classes.divider}/>
-                        <span>{story.time}</span>
-                        <Divider className={classes.divider}/>
-                        <span>{story.kids.length} comments</span>
-                        <Divider className={classes.divider}/>
-                        <span>({story.url})</span>
+                        <span className={classes.divider}></span>
+                        <span>{`${mapTime(story.time)} ago`}</span>
+                        <span className={classes.divider}></span>
+                        <span>{story.descendants} comments</span>
+                        <span className={classes.divider}></span>
+                        <span>(<a href={story.url} className={classes.storyUrl}>{story.url}</a>)</span>
                     </Typography>
                 }
             />
-                
-            
         </ListItem>
-    )
+    ) : null;
 };
 
 export default withRouter(StoryItem);
